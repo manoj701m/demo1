@@ -22,11 +22,11 @@
     - name: Log into private registry
       become: true
       shell: "docker login mydockcontainer.azurecr.io -u mydockcontainer -p snCEVIUcXvkUeJe4B92frIee/xbL9fTd"
-  
+   
     - name: Pull an image
       become: true
       shell: "docker pull mydockcontainer.azurecr.io/demo1"
-   
+    
     - name: Deploy the demo1 container
       become: true
       shell: "docker run -d -p 8999:8080 mydockcontainer.azurecr.io/demo1"
