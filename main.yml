@@ -19,34 +19,14 @@
         state: latest
         update_cache: true
     
-    - name: Log into private registry and force re-authorization
+    - name: Log into private registry
       become: true
-      docker_login:
-        registry: mydockcontainer.azurecr.io
-        username: mydockcontainer
-        password: snCEVIUcXvkUeJe4B92frIee/xbL9fTd
-        reauthorize: yes
-
-    - name: pull an image
+      shell: "docker login mydockcontainer.azurecr.io -u mydockcontainer -p snCEVIUcXvkUeJe4B92frIee/xbL9fTd"
+  
+    - name: Pull an image
       become: true
-      docker_image:
-        name: mydockcontainer.azurecr.io/demo1
-
-    - name: Create a data container
-      become: true
-      docker_container:
-        name: demo1
-        image: mydockcontainer.azurecr.io/demo1
-        ports:
-          - "8080:9000"
-#    - name: Log into private registry
-#      become: true
-#      shell: "docker login mydockcontainer.azurecr.io -u mydockcontainer -p snCEVIUcXvkUeJe4B92frIee/xbL9fTd"
+      shell: "docker pull mydockcontainer.azurecr.io/demo1"
    
-#    - name: Pull an image
-#      become: true
-#      shell: "docker pull mydockcontainer.azurecr.io/demo1"
-    
-#    - name: Deploy the demo1 container
-#      become: true
-#      shell: "docker run -d -p 8999:8080 mydockcontainer.azurecr.io/demo1"
+    - name: Deploy the demo1 container
+      become: true
+      shell: "docker run -d -p 8999:8080 mydockcontainer.azurecr.io/demo1"
